@@ -10,7 +10,7 @@ module CarrierWave
 
       # Store a single file
       def store!(file)
-        new_folder = mega_client.root.create_folder("my_documents")
+        # new_folder = mega_client.root.create_folder("my_documents")
 
         location = uploader.store_path
         # storage.root.create_folder(location)
@@ -19,7 +19,7 @@ module CarrierWave
         puts file.inspect
         # mega_client.root.upload(file.to_file)
         folder = mega_client.root.folders[1]
-        folder.upload("~/uploads/#{file.to_file}")
+        folder.upload("~/rails_projects/schoolTest/public/uploads/#{file.to_file}")
       end
 
       # Retrieve a single file
