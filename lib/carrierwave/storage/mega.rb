@@ -18,7 +18,7 @@ module CarrierWave
         puts "------#{location}"
         puts file.inspect
         # mega_client.root.upload(file.to_file)
-        folder = mega_client.root.folders[1]
+        folder = mega_client.root.folders[0]
         folder.upload("~/rails_projects/schoolTest/public/uploads/#{file.to_file}")
       end
 
