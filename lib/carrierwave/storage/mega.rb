@@ -10,14 +10,16 @@ module CarrierWave
 
       # Store a single file
       def store!(file)
+        new_folder = storage.root.create_folder("my_documents")
+
         location = uploader.store_path
         # storage.root.create_folder(location)
         # location = "/Public/#{location}" if config[:access_type] == "dropbox"
         puts "------#{location}"
         puts file.inspect
-        mega_client.root.upload(file.to_file)
-        # folder = mega_client.root.folders[1]
-        # folder.upload("~/Downloads/#{file.to_file}")
+        # mega_client.root.upload(file.to_file)
+        folder = storage.root.folders[1]
+        folder.upload("~/#{file.to_file}")
       end
 
       # Retrieve a single file
