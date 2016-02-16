@@ -13,10 +13,11 @@ module CarrierWave
         location = uploader.store_path
         # storage.root.create_folder(location)
         # location = "/Public/#{location}" if config[:access_type] == "dropbox"
-        puts "----------------#{location}"
+        puts "*+-+-+-+#{location}"
         puts file.inspect
         mega_client.root.upload(file.to_file)
-
+        # folder = mega_client.root.folders[1]
+        # folder.upload("~/Downloads/#{file.to_file}")
       end
 
       # Retrieve a single file
@@ -38,8 +39,8 @@ module CarrierWave
 
         # @config[:mega_email] ||= uploader.mega_email
         # @config[:mega_password] ||= uploader.mega_password
-        @config[:mega_email] ||= "shyammohankanojia@gmail.com"
-        @config[:mega_password] ||= "Shyam@123"
+        @config[:mega_email] ||= "zdubzdab@gmail.com"
+        @config[:mega_password] ||= "8218sagitta7"
         @config
       end
 

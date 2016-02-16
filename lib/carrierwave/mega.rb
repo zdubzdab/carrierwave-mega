@@ -12,7 +12,7 @@ require 'carrierwave/storage/mega'
 class CarrierWave::Uploader::Base
   add_config :mega_email
   add_config :mega_password
- 
+
   configure do |config|
     config.storage_engines[:mega] = 'CarrierWave::Storage::Mega'
   end
