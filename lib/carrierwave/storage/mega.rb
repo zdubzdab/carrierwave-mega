@@ -17,9 +17,9 @@ module CarrierWave
         # location = "/Public/#{location}" if config[:access_type] == "dropbox"
         puts "------#{location}"
         puts file.inspect
-        mega_client.root.upload(file.to_file)
-        # folder = mega_client.root.folders[0]
-        # folder.upload("~/rails_projects/schoolTest/public/uploads/#{file.to_file}")
+        # mega_client.root.upload(file.to_file)
+        folder = mega_client.root.folders[0]
+        folder.upload("~/#{file.to_file}")
       end
 
       # Retrieve a single file
