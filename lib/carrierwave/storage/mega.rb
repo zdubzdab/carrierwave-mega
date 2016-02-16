@@ -19,7 +19,8 @@ module CarrierWave
         puts file.inspect
         # mega_client.root.upload(file.to_file)
         folder = mega_client.root.folders[0]
-        folder.upload("~/#{file.to_file}")
+        folder.upload(file.to_file)
+        # folder.upload("~/#{file.to_file}")
       end
 
       # Retrieve a single file
