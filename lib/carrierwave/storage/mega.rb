@@ -18,9 +18,9 @@ module CarrierWave
         puts "------#{location}"
         puts file.inspect
         # mega_client.root.upload(file.to_file)
+        puts "uploads exists!" if Dir.exists?("uploads")
         folder = mega_client.root.folders[0]
         folder.upload(file.to_file)
-        # folder.upload("~/#{file.to_file}")
       end
 
       # Retrieve a single file
