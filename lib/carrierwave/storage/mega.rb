@@ -11,29 +11,35 @@ module CarrierWave
       # Store a single file
       def store!(file)
         # new_folder = mega_client.root.create_folder("my_documents")
-
         location = uploader.store_path
         # storage.root.create_folder(location)
         # location = "/Public/#{location}" if config[:access_type] == "dropbox"
         puts "------#{location}"
         puts file.inspect
+        puts @mounted_as
+        puts "uploader.mounted_as#{uploader.mounted_as}"
         # mega_client.root.upload(file.to_file)
         # puts "uploads exists!" if Dir.exists?("uploads")
         # "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
-        uploader_folder = mega_client.root.folders[0]
-        test_setting_folder = uploader_folder.folders[0]
-        if uploader.mounted_as == "files"
-          folder = mega_client.nodes.find do |node|
-            node.type == :folder and node.name == 'files'
-          end
-          model_id_folder = folder.create_folder("#{uploader.model.id}")
-          model_id_folder.upload(file.to_file)
-        else
-          folder = mega_client.nodes.find do |node|
+        # uploader_folder = mega_client.root.folders[0]
+        # test_setting_folder = uploader_folder.folders[0]
+        if uploader.mounted_as == 'videos'
+        # if @mounted_as == "files"
+          video_folder = mega_client.nodes.find do |node|
             node.type == :folder and node.name == 'videos'
           end
-          model_id_folder = folder.create_folder("#{uploader.model.id}")
+          model_id_folder = video_folder.create_folder("#{uploader.model.id}")
           model_id_folder.upload(file.to_file)
+        else
+          file_folder = mega_client.nodes.find do |node|
+            node.type == :folder and node.name == 'files'
+          end
+          if file_folder.folders.find { |folder| folder.name == "#{uploader.model.id}" }
+            file_folder.folders.find { |folder| folder.name == "#{uploader.model.id}" }.upload(file.to_file)
+          else
+            model_id_folder = file_folder.create_folder("#{uploader.model.id}")
+            model_id_folder.upload(file.to_file)
+          end
         end
       end
 
