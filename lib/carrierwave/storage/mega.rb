@@ -19,9 +19,14 @@ module CarrierWave
         puts file.inspect
         # mega_client.root.upload(file.to_file)
         # puts "uploads exists!" if Dir.exists?("uploads")
-        folder = mega_client.root.folders[0]
-        Dir.mkdir("files") unless Dir.exist?("files")
-        folder.upload(file.to_file)
+        "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+        if uploader.mounted_as == "files"
+          folder = mega_client.root.folders[0][0]
+          folder.upload(file.to_file)
+        else
+          folder = mega_client.root.folders[0][1]
+          folder.upload(file.to_file)
+        end
       end
 
       # Retrieve a single file
