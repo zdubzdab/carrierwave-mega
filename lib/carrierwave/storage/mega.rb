@@ -20,12 +20,14 @@ module CarrierWave
         # mega_client.root.upload(file.to_file)
         # puts "uploads exists!" if Dir.exists?("uploads")
         # "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+        uploader_folder = mega_client.root.folders[0]
+        test_setting_folder = uploader_folder.folders[0]
         if uploader.mounted_as == "files"
-          folder = mega_client.root.folders[0][0]
-          folder.upload(file.to_file)
+          files_folder = test_setting_folder.folders[0]
+          files_folder.upload(file.to_file)
         else
-          folder = mega_client.root.folders[0][1]
-          folder.upload(file.to_file)
+          videos_folder = test_setting_folder.folders[1]
+          videos_folder.upload(file.to_file)
         end
       end
 
