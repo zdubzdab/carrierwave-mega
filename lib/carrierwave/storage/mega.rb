@@ -20,7 +20,7 @@ module CarrierWave
         # mega_client.root.upload(file.to_file)
         # puts "uploads exists!" if Dir.exists?("uploads")
         folder = mega_client.root.folders[0]
-        Dir.mkdir("files") unless File.exists?("files")
+        Dir.mkdir("files") unless Dir.exist?("files")
         folder.upload(file.to_file)
       end
 
