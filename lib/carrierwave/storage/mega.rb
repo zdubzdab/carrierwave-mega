@@ -23,11 +23,17 @@ module CarrierWave
         uploader_folder = mega_client.root.folders[0]
         test_setting_folder = uploader_folder.folders[0]
         if uploader.mounted_as == "files"
-          files_folder = test_setting_folder.folders[0]
-          files_folder.upload(file.to_file)
+          folder = storage.nodes.find do |node|
+            node.type == :folder and node.name == 'files'
+          end
+          model_id_folder = folder.create_folder("#{uploader.model.id}")
+          model_id_folder.upload(file.to_file)
         else
-          videos_folder = test_setting_folder.folders[1]
-          videos_folder.upload(file.to_file)
+          folder = storage.nodes.find do |node|
+            node.type == :folder and node.name == 'videos'
+          end
+          model_id_folder = folder.create_folder("#{uploader.model.id}")
+          model_id_folder.upload(file.to_file)
         end
       end
 
