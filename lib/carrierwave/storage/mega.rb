@@ -29,9 +29,9 @@ module CarrierWave
           file_or_video_folder = location.to_s.match('videos').to_s
         end
 
-        file_or_video_folder = mega_client.nodes.find do |node|
-          node.type == :folder and node.name == "files" || "videos"
-        end
+        # file_or_video_folder = mega_client.nodes.find do |node|
+        #   node.type == :folder and node.name == "files" || "videos"
+        # end
 
         if file_or_video_folder.folders.find { |folder| folder.name == "#{uploader.model.id}" }
           file_or_video_folder.folders.find { |folder| folder.name == "#{uploader.model.id}" }.upload(file.to_file)
