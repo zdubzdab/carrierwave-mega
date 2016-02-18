@@ -23,15 +23,18 @@ module CarrierWave
         # uploader_folder = mega_client.root.folders[0]
         # test_setting_folder = uploader_folder.folders[0]
 
-        # if location.to_s.match('videos').to_s.blank?
-        #   file_or_video_folder = location.to_s.match('files').to_s
-        # else
-        #   file_or_video_folder = location.to_s.match('videos').to_s
-        # end
-
-        file_or_video_folder = mega_client.nodes.find do |node|
-          node.type == :folder and node.name == "files" || "videos"
+        if location.to_s.match('videos').to_s.blank?
+          file_or_video_folder_name = location.to_s.match('files').to_s
+        else
+          file_or_video_folder_name = location.to_s.match('videos').to_s
         end
+
+        file_or_video_folder = mega_client.nodes.find { |node| node.type == :folder and node.name =~ /file_or_video_folder_name/i  }
+
+
+        # file_or_video_folder = storage.nodes.find do |node|
+        #   node.type == :folder and node.name == "files" || "videos"
+        # end
 
         if file_or_video_folder.folders.find { |folder| folder.name == "#{uploader.model.id}" }
           file_or_video_folder.folders.find { |folder| folder.name == "#{uploader.model.id}" }.upload(file.to_file)
