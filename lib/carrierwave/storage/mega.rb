@@ -32,7 +32,7 @@ module CarrierWave
         # file_or_video_folder = mega_client.nodes.find { |node| node.type == :folder and node.name =~ /file_or_video_folder_name/i  }
 
 
-        file_or_video_folder = storage.nodes.find do |node|
+        file_or_video_folder = mega_client.nodes.find do |node|
           node.type == :folder and node.name == "files"
         end
 
