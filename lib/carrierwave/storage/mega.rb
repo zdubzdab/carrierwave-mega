@@ -17,23 +17,23 @@ module CarrierWave
         puts "------#{location}"
         puts file.inspect
         puts "uploader.mounted_as == #{uploader.mounted_as}"
-        mega_client.root.upload(file.to_file)
+        # mega_client.root.upload(file.to_file)
 
-        # if location.to_s.match('videos').to_s.blank?
-        #   file_or_video_folder_name = location.to_s.match('files').to_s
-        # else
-        #   file_or_video_folder_name = location.to_s.match('videos').to_s
-        # end
+        if location.to_s.match('videos').to_s.blank?
+          file_or_video_folder_name = location.to_s.match('files').to_s
+        else
+          file_or_video_folder_name = location.to_s.match('videos').to_s
+        end
 
-        # file_or_video_folder = mega_client.nodes.find do |node|
-        #   node.type == :folder and node.name == file_or_video_folder_name
-        # end
+        file_or_video_folder = mega_client.nodes.find do |node|
+          node.type == :folder and node.name == file_or_video_folder_name
+        end
 
-        # if file_or_video_folder.folders.find { |folder| folder.name == "#{uploader.model.id}" }
-        #   file_or_video_folder.folders.find { |folder| folder.name == "#{uploader.model.id}" }.upload(file.to_file)
-        # else
-        #   file_or_video_folder.create_folder("#{uploader.model.id}").upload(file.to_file)
-        # end
+        if file_or_video_folder.folders.find { |folder| folder.name == "#{uploader.model.id}" }
+          file_or_video_folder.folders.find { |folder| folder.name == "#{uploader.model.id}" }.upload(file.to_file)
+        else
+          file_or_video_folder.create_folder("#{uploader.model.id}").upload(file.to_file)
+        end
       end
 
       # Retrieve a single file
